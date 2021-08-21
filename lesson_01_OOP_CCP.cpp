@@ -2,7 +2,7 @@
 // Name        : lesson_01_OOP_CPP.cpp
 // Author      : andry antonenko
 // IDE         : Eclipse IDE
-// Description : lesson 16 of the algorithms and data structures course
+// Description : lesson 01 of the object-oriented programming on C++ course
 //============================================================================
 
 #include <QCoreApplication>
