@@ -1,13 +1,12 @@
 //============================================================================
 // Name        : lesson_01_OOP_CPP.cpp
 // Author      : andry antonenko
-// IDE         : Eclipse IDE
+// IDE         : Qt Creator 4.14.2 based on Qt 5.15.2
 // Description : lesson 01 of the object-oriented programming on C++ course
 //============================================================================
 
 #include <QCoreApplication>
 #include <iostream>
-
 #include <random>
 #include <stdlib.h>
 #include <cmath>
@@ -39,18 +38,18 @@ int getRandomNum(int min, int max)
 
 class Power
 {
-    double a,b;
+  double a,b;
 public:
-    void set(double aA, double aB)
-    {
-        a = aA;
-        b = aB;
-    }
+  void set(double aA, double aB)
+  {
+    a = aA;
+    b = aB;
+  }
 
-    double calculate()
-    {
-        return pow(a,b);
-    }
+  double calculate()
+  {
+    return pow(a,b);
+  }
 };
 
 /*
@@ -148,6 +147,8 @@ public:
   }
   int pop(Status *pState)
   {
+    assert(pState != nullptr);
+
     if(cnt == 0)
     {
       *pState = STACK_EMPTY;
