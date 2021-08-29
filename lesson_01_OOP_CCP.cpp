@@ -40,6 +40,9 @@ class Power
 {
   double a,b;
 public:
+  Power(double aA = 0, double aB = 0)
+    :a(aA),b(aB){};
+
   void set(double aA, double aB)
   {
     a = aA;
@@ -93,8 +96,10 @@ public:
         ◦ private-массив целых чисел длиной 10;
         ◦ private целочисленное значение для отслеживания длины стека;
         ◦ public-метод с именем reset(), который будет сбрасывать длину и все значения элементов на 0;
-        ◦ public-метод с именем push(), который будет добавлять значение в стек. push() должен возвращать значение false, если массив уже заполнен, и true в противном случае;
-        ◦ public-метод с именем pop() для вытягивания и возврата значения из стека. Если в стеке нет значений, то должно выводиться предупреждение;
+        ◦ public-метод с именем push(), который будет добавлять значение в стек.
+push() должен возвращать значение false, если массив уже заполнен, и true в противном случае;
+        ◦ public-метод с именем pop() для вытягивания и возврата значения из стека.
+Если в стеке нет значений, то должно выводиться предупреждение;
         ◦ public-метод с именем print(), который будет выводить все значения стека.
 //*/
 
@@ -107,31 +112,20 @@ enum Status
 
 class Stack
 {
-  int *mas = nullptr;
-  size_t cnt = 0;
-  const size_t SIZE = 10;
+  vector<int> mas;
+  size_t cnt;
+  const size_t SIZE;
 
 public:
-  Stack(const size_t aSize)
-    : SIZE(aSize)
+  Stack(const size_t aSize = 10)
+    : cnt(0), SIZE(aSize)
   {
     assert(aSize > 0);
 
-    try {
-      mas = new int[SIZE];
-    }
-    catch (const std::exception&) {
-      cout << "No memory allocated." << endl;
-    }
-
-    assert(mas != nullptr);
+    mas.resize(aSize);
   }
 
-  ~Stack()
-  {
-    if(mas != nullptr)
-      delete mas;
-  }
+  ~Stack() {}
 
   void reset()
   {
@@ -145,16 +139,14 @@ public:
     mas[cnt++] = d;
     return STACK_OK;
   }
-  int pop(Status *pState)
+  int pop(Status &status)
   {
-    assert(pState != nullptr);
-
     if(cnt == 0)
     {
-      *pState = STACK_EMPTY;
+      status = STACK_EMPTY;
       return 0;
     }
-    *pState = STACK_OK;
+    status = STACK_OK;
     return mas[--cnt];
   }
   void print()
@@ -250,7 +242,7 @@ void task_3()
     }
   }
   stack.print();
-  cout << "Pop one number " << stack.pop(&st);
+  cout << "Pop one number " << stack.pop(st);
   cout << " of numbers (Status is " << st << "):" << endl;
   stack.print();
   stack.reset();
@@ -271,7 +263,7 @@ void task_3()
     }
   }
   stack.print();
-  cout << "Pop one number " << stack.pop(&st);
+  cout << "Pop one number " << stack.pop(st);
   cout << " of numbers (Status is " << st << "):" << endl;
   stack.reset();
 
@@ -292,7 +284,7 @@ void task_3()
   cout << "Pop " << AMOUND << " of numbers:" << endl;
   for(int i = 0; i < AMOUND; i++)
   {
-    int d = stack.pop(&st);
+    int d = stack.pop(st);
     if(st == STACK_EMPTY)
       cout << "\nSTACK_EMPTY (Status is " << st << ")" << endl;
     else
